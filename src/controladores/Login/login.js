@@ -16,25 +16,27 @@ const logar = async (req, res) => {
     const encontrarRegistro = await query(encontrarRegistroSQL, [email]);
 
     if (encontrarRegistro.rowCount === 0) {
-      return res.status(400).json(erro.erroLogin);
+      return res.status(400).json(erro.loginIncorreto);
     }
 
     const usuario = encontrarRegistro.rows[0];
     const senhaUsuario = decrypt(JSON.parse(usuario.senha));
 
     if (senha !== senhaUsuario) {
-      return res.status(400).json(erro.erroLogin);
+      return res.status(400).json(erro.loginIncorreto);
     }
 
     const tokenUsuario = jwt.sign({
       ID: usuario.id,
       Nome: usuario.nome,
+      Email: usuario.email,
     }, jwtSecret, { expiresIn: '1h' });
 
     const authUsuario = {
       usuario: {
         ID: usuario.id,
         Nome: usuario.nome,
+        Email: usuario.email,
       },
       tokenUsuario,
     };
