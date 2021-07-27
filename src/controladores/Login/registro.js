@@ -1,10 +1,6 @@
 const registroSchema = require('../../validacoes/registroSchema');
 
 const registrar = async (req, res) => {
-  const {
-    nome, email, senha, restaurante,
-  } = req.body;
-
   try {
     await registroSchema.validate(req.body);
 
