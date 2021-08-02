@@ -26,10 +26,15 @@ const logar = async (req, res) => {
       return res.status(400).json(erro.loginIncorreto);
     }
 
+    const encontrarNomeRestauranteSQL = 'SELECT nome FROM restaurante where usuario_id = $1';
+    const encontrarNomeRestaurante = await query(encontrarNomeRestauranteSQL, [usuario.id]);
+
+    const nomeRestaurante = encontrarNomeRestaurante.rows[0];
     const tokenUsuario = jwt.sign({
       ID: usuario.id,
       Nome: usuario.nome,
       Email: usuario.email,
+      NomeRestaurante: nomeRestaurante.nome,
     }, jwtSecret, { expiresIn: '1h' });
 
     const authUsuario = {
@@ -37,6 +42,7 @@ const logar = async (req, res) => {
         ID: usuario.id,
         Nome: usuario.nome,
         Email: usuario.email,
+        NomeRestaurante: nomeRestaurante.nome,
       },
       tokenUsuario,
     };
