@@ -6,12 +6,25 @@ const carregarImagem = async (req, res) => {
   const buffer = Buffer.from(imagem, 'base64');
 
   try {
-    const data = await supabase
+    const { data, error } = await supabase
       .storage
       .from(process.env.SUPABASE_BUCKET)
       .upload(nome, buffer);
 
-    return res.json(data);
+    if (error) {
+      return res.status(400).json(error.message);
+    }
+
+    const { publicURL, error: errorPublicUrl } = supabase
+      .storage
+      .from(process.env.SUPABASE_BUCKET)
+      .getPublicUrl(nome);
+
+    if (errorPublicUrl) {
+      return res.status(400).json(errorPublicUrl.message);
+    }
+
+    return res.json(publicURL);
   } catch (error) {
     return res.status(400).json(error.message);
   }
