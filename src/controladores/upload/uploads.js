@@ -31,7 +31,22 @@ const carregarImagem = async (req, res) => {
 };
 
 const excluirImagem = async (req, res) => {
+  const { imagem } = req.body;
 
+  try {
+    const { error } = await supabase
+      .storage
+      .from(process.env.SUPABASE_BUCKET)
+      .remove([imagem]);
+
+    if (error) {
+      return res.status(400).json(error.message);
+    }
+
+    return res.json('Imagem removida com sucesso!');
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
 };
 
 module.exports = {
