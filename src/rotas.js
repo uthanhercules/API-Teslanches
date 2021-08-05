@@ -11,11 +11,14 @@ const { ativarProduto } = require('./controladores/produtos/ativarProduto');
 const { desativarProduto } = require('./controladores/produtos/desativarProduto');
 const { obterUsuario } = require('./controladores/Usuarios/obterUsuario');
 const { editarUsuario } = require('./controladores/Usuarios/editarUsuario');
+const { carregarImagem, excluirImagem } = require('./controladores/upload/uploads');
 
 const rota = express();
 
 rota.post('/usuarios', registrar);
 rota.post('/login', logar);
+rota.post('/upload', carregarImagem);
+rota.post('/delete', excluirImagem);
 
 rota.use(verificarLogin);
 rota.get('/usuario', obterUsuario);

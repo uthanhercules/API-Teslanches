@@ -13,7 +13,7 @@ const editarUsuario = async (req, res) => {
     email, nomeUsuario, nomeRestaurante, descricao, imagem_restaurante, categoria_id, taxa_entrega,
     tempo_entrega_minutos, valor_minimo_pedido, senha,
   } = req.body;
-  if (!nomeUsuario || !nomeRestaurante || !descricao || !imagem_restaurante || !categoria_id
+  if (!nomeUsuario || !nomeRestaurante || !descricao || !categoria_id
     || !taxa_entrega || !tempo_entrega_minutos || !valor_minimo_pedido || !senha || !email) {
     res.status(400).json('Nenhum campo deve estar em branco');
   }
@@ -34,16 +34,14 @@ const editarUsuario = async (req, res) => {
     const query2 = `UPDATE restaurante
       SET nome = $1, 
       descricao=$2,
-      imagem_restaurante=$3,
-      categoria_id=$4,
-      taxa_entrega=$5,
-      tempo_entrega_minutos=$6,
-      valor_minimo_pedido=$7
-      WHERE usuario_id=$8;`;
+      categoria_id=$3,
+      taxa_entrega=$4,
+      tempo_entrega_minutos=$5,
+      valor_minimo_pedido=$6
+      WHERE usuario_id=$7;`;
 
     const editarRestaurante = await conexao.query(query2, [nomeRestaurante,
       descricao,
-      imagem_restaurante,
       categoria_id,
       taxa_entrega,
       tempo_entrega_minutos,
@@ -51,6 +49,14 @@ const editarUsuario = async (req, res) => {
       ID]);
     if (editarRestaurante.rowCount === 0) {
       return res.status(400).json('Erro ao editar dados do restaurante');
+    }
+
+    if (imagem_restaurante) {
+      const query3 = 'UPDATE restaurante SET imagem_restaurante = $1 WHERE usuario_id=$2';
+      const conexaoImagem = await conexao.query(query3, [imagem_restaurante, ID]);
+      if (conexaoImagem.rowCount === 0) {
+        return res.status(400).json('Erro ao editar imagem do restaurante');
+      }
     }
     res.status(200).json();
   } catch (error) {
