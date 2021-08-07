@@ -29,12 +29,20 @@ const logar = async (req, res) => {
     const encontrarNomeRestauranteSQL = 'SELECT nome FROM restaurante where usuario_id = $1';
     const encontrarNomeRestaurante = await query(encontrarNomeRestauranteSQL, [usuario.id]);
 
+    const idRestauranteSQL = 'SELECT id FROM restaurante where usuario_id = $1';
+    const idRestaurante = await query(idRestauranteSQL, [usuario.id]);
+    const idDoRestaurante = idRestaurante.rows[0].id;
+
+    const categoriaRestauranteSQL = 'SELECT nome FROM categoria WHERE id = $1';
+    const categoriaRestaurante = await query(categoriaRestauranteSQL, [idDoRestaurante]);
+
     const nomeRestaurante = encontrarNomeRestaurante.rows[0];
     const tokenUsuario = jwt.sign({
       ID: usuario.id,
       Nome: usuario.nome,
       Email: usuario.email,
       NomeRestaurante: nomeRestaurante.nome,
+      Categoria: categoriaRestaurante.rows[0].nome,
     }, jwtSecret, { expiresIn: '1h' });
 
     const authUsuario = {
@@ -43,6 +51,7 @@ const logar = async (req, res) => {
         Nome: usuario.nome,
         Email: usuario.email,
         NomeRestaurante: nomeRestaurante.nome,
+        Categoria: categoriaRestaurante.rows[0].nome,
       },
       tokenUsuario,
     };
