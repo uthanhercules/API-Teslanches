@@ -12,6 +12,7 @@ const { desativarProduto } = require('./controladores/produtos/desativarProduto'
 const { obterUsuario } = require('./controladores/Usuarios/obterUsuario');
 const { editarUsuario } = require('./controladores/Usuarios/editarUsuario');
 const { carregarImagem, excluirImagem } = require('./controladores/upload/uploads');
+const { editarFotoUsuario } = require('./controladores/Usuarios/editarFotoUsuario');
 
 const rota = express();
 
@@ -23,6 +24,7 @@ rota.post('/delete', excluirImagem);
 rota.use(verificarLogin);
 rota.get('/usuario', obterUsuario);
 rota.put('/usuario', editarUsuario);
+rota.put('/imagemUsuario', editarFotoUsuario);
 
 rota.post('/produtos', cadastrarProduto);
 rota.get('/produtos', listarProdutos);

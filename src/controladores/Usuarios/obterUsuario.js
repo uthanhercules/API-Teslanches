@@ -7,7 +7,7 @@ const obterUsuario = async (req, res) => {
   const dadosUsuarios = jwt.verify(req.header('tokenUsuario'), jwtSecret);
   const { ID } = dadosUsuarios;
   try {
-    const query = `select usuario.id,usuario.nome as nomeUsuario,usuario.email,restaurante.nome,restaurante.categoria_id,restaurante.descricao,restaurante.taxa_entrega,restaurante.tempo_entrega_minutos,restaurante.valor_minimo_pedido
+    const query = `select usuario.id,usuario.nome as nomeUsuario,usuario.email,restaurante.nome,restaurante.categoria_id,restaurante.descricao,restaurante.taxa_entrega,restaurante.tempo_entrega_minutos,restaurante.valor_minimo_pedido, restaurante.imagem_restaurante
       from usuario
       JOIN restaurante ON restaurante.usuario_id = usuario.id WHERE usuario.id = $1;
       `;
