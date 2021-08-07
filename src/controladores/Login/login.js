@@ -29,9 +29,9 @@ const logar = async (req, res) => {
     const encontrarNomeRestauranteSQL = 'SELECT nome FROM restaurante where usuario_id = $1';
     const encontrarNomeRestaurante = await query(encontrarNomeRestauranteSQL, [usuario.id]);
 
-    const idRestauranteSQL = 'SELECT id FROM restaurante where usuario_id = $1';
+    const idRestauranteSQL = 'SELECT categoria_id FROM restaurante where usuario_id = $1';
     const idRestaurante = await query(idRestauranteSQL, [usuario.id]);
-    const idDoRestaurante = idRestaurante.rows[0].id;
+    const idDoRestaurante = idRestaurante.rows[0].categoria_id;
 
     const categoriaRestauranteSQL = 'SELECT nome FROM categoria WHERE id = $1';
     const categoriaRestaurante = await query(categoriaRestauranteSQL, [idDoRestaurante]);
