@@ -22,7 +22,7 @@ const cadastrarProduto = async (req, res) => {
     if (produto.rowCount === 0) {
       return res.status(400).json('Não foi possivel cadastrar o produto');
     }
-    return res.status(200).json();
+    return res.status(200).json('Produto cadastrado com sucesso!');
   } catch (error) {
     res.status(400).json(error.message);
   }

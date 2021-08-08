@@ -34,7 +34,7 @@ const deletarProduto = async (req, res) => {
       return res.status(404).json('Não foi possível excluir o produto');
     }
 
-    return res.status(200).json();
+    return res.status(200).json('Produto deletado com sucesso!');
   } catch (error) {
     res.status(400).json(error.message);
   }

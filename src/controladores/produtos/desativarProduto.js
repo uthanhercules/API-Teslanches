@@ -34,7 +34,7 @@ const desativarProduto = async (req, res) => {
       return res.status(400).json('O produto não foi atualizado');
     }
 
-    return res.status(200).json();
+    return res.status(200).json('Produto foi desativado com sucesso!');
   } catch (error) {
     return res.status(400).json(error.message);
   }
