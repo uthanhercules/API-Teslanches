@@ -6,6 +6,7 @@ const { cadastrarProduto } = require('./controladores/produtos/cadastrarProdutos
 const { listarProdutos } = require('./controladores/produtos/listarProdutos');
 const { obterProduto } = require('./controladores/produtos/obterProduto');
 const { editarProduto } = require('./controladores/produtos/editarProduto');
+const { editarImagemProduto } = require('./controladores/produtos/editarImagemProduto');
 const { deletarProduto } = require('./controladores/produtos/deletarProduto');
 const { ativarProduto } = require('./controladores/produtos/ativarProduto');
 const { desativarProduto } = require('./controladores/produtos/desativarProduto');
@@ -30,6 +31,7 @@ rota.post('/produtos', cadastrarProduto);
 rota.get('/produtos', listarProdutos);
 rota.get('/produtos/:idProduto', obterProduto);
 rota.put('/produtos/:idProduto', editarProduto);
+rota.put('/imagemProduto/:idProduto', editarImagemProduto);
 rota.delete('/produtos/:idProduto', deletarProduto);
 rota.post('/produtos/:idProduto/ativar', ativarProduto);
 rota.post('/produtos/:idProduto/desativar', desativarProduto);
