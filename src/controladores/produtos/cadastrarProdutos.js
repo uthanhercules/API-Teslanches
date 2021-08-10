@@ -9,15 +9,15 @@ const cadastrarProduto = async (req, res) => {
   const dadosUsuarios = jwt.verify(req.header('tokenUsuario'), jwtSecret);
   const { ID } = dadosUsuarios;
   const {
-    nome, descricao, preco, permiteObservacoes,
+    nome, descricao, preco, permiteObservacoes, imagemProduto,
   } = req.body;
   try {
     await cadastrarProdutosSchema.validate(req.body);
 
     const query0 = 'select id from restaurante where usuario_id = $1';
     const restauranteId = await conexao.query(query0, [ID]);
-    const query = 'insert into produto (restaurante_id,nome, descricao, preco, permite_observacoes) values ($1,$2,$3,$4,$5)';
-    const produto = await conexao.query(query, [restauranteId.rows[0].id, nome, descricao, preco, permiteObservacoes]);
+    const query = 'insert into produto (restaurante_id,nome, descricao, preco, permite_observacoes, imagem_produto) values ($1,$2,$3,$4,$5,$6)';
+    const produto = await conexao.query(query, [restauranteId.rows[0].id, nome, descricao, preco, permiteObservacoes, imagemProduto]);
 
     if (produto.rowCount === 0) {
       return res.status(400).json('Não foi possivel cadastrar o produto');
