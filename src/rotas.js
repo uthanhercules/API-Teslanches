@@ -21,6 +21,7 @@ rota.post('/usuarios', registrar);
 rota.post('/login', logar);
 rota.post('/upload', carregarImagem);
 rota.post('/delete', excluirImagem);
+rota.post('/imagem', excluirImagem);
 
 rota.use(verificarLogin);
 rota.get('/usuario', obterUsuario);

@@ -49,7 +49,27 @@ const excluirImagem = async (req, res) => {
   }
 };
 
+const contemImagem = async (req, res) => {
+  const { nome } = req.body;
+
+  try {
+    const { temImagem, error: errorTemImagem } = supabase
+      .storage
+      .from(process.env.SUPABASE_BUCKET)
+      .getPublicUrl(nome);
+
+    if (errorTemImagem) {
+      return res.status(400).json(errorTemImagem.message);
+    }
+
+    return res.json(temImagem);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+};
+
 module.exports = {
   carregarImagem,
   excluirImagem,
+  contemImagem,
 };
