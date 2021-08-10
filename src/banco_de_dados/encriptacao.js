@@ -19,7 +19,7 @@ const decrypt = (password) => {
   const decipher = crypto.createDecipheriv(
     algorithm,
     secretKey,
-    Buffer.from(password.iv, 'hex')
+    Buffer.from(password.iv, 'hex'),
   );
 
   const decrpyted = Buffer.concat([
