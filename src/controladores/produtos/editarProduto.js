@@ -9,10 +9,10 @@ const editarProduto = async (req, res) => {
   const { ID } = dadosUsuarios;
   const { idProduto } = req.params;
   const {
-    nome, descricao, preco, permiteObservacoes,
+    nome, descricao, preco, permiteObservacoes, imagemProduto,
   } = req.body;
 
-  if (!nome && !descricao && !preco && !permiteObservacoes) {
+  if (!nome && !descricao && !preco && !permiteObservacoes && !imagemProduto) {
     return res.status(404).json('Informe ao menos um campo para atualizaçao do produto');
   }
 
@@ -57,6 +57,11 @@ const editarProduto = async (req, res) => {
     if (permiteObservacoes) {
       body.permiteObservacoes = permiteObservacoes;
       params.push(`permite_observacoes = $${n}`);
+      n++;
+    }
+    if (imagemProduto) {
+      body.imagemProduto = imagemProduto;
+      params.push(`imagem_produto = $${n}`);
       n++;
     }
     const valores = Object.values(body);
