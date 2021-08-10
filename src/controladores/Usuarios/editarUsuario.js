@@ -51,7 +51,7 @@ const editarUsuario = async (req, res) => {
       return res.status(400).json('Erro ao editar dados do restaurante');
     }
 
-    res.status(200).json();
+    res.status(200).json('');
   } catch (error) {
     res.status(400).json(error.message);
   }
