@@ -5,6 +5,7 @@ const cadastrarProdutosSchema = yup.object().shape({
   descricao: yup.string().max(100),
   preco: yup.number().required(),
   permiteObservacoes: yup.boolean().required(),
+  imagemProduto: yup.string(),
 });
 
 module.exports = cadastrarProdutosSchema;
