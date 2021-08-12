@@ -20,7 +20,7 @@ const editarImagemProduto = async (req, res) => {
     if (conexaoImagem.rowCount === 0) {
       return res.status(400).json('Erro ao editar imagem do produto');
     }
-    res.status(200).json();
+    res.status(200).json('');
   } catch (error) {
     res.status(400).json('Erro ao editar foto do produto');
   }
