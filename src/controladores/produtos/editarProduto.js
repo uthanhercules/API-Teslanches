@@ -28,6 +28,15 @@ const editarProduto = async (req, res) => {
 
     const restauranteId = restaurante[0].restaurante_id;
 
+    if (nome) {
+      const query1 = 'select * from produto where restaurante_id = $1';
+      const { rows: produtosEncontrados } = await conexao.query(query1, [restauranteId]);
+      const nomeIgual = produtosEncontrados.find((prod) => prod.nome === nome);
+      if (nomeIgual && nomeIgual.id !== idProduto) {
+        return res.status(400).json('O nome do produto ja existe');
+      }
+    }
+
     const query2 = 'select usuario_id from restaurante where id = $1';
     const { rows: usuario } = await conexao.query(query2, [restauranteId]);
 
