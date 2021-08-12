@@ -16,17 +16,17 @@ const cadastrarProduto = async (req, res) => {
 
     const query0 = 'select id from restaurante where usuario_id = $1';
     const restauranteId = await conexao.query(query0, [ID]);
+
+    const query2 = 'select * from produto where restaurante_id = $1';
+    const { rows: produtosEncontrados } = await conexao.query(query2, [restauranteId.rows[0].id]);
+
+    const nomeIgual = produtosEncontrados.find((prod) => prod.nome === nome);
+    if (nomeIgual) {
+      return res.status(400).json('O nome do produto ja existe');
+    }
+
     const query = 'insert into produto (restaurante_id,nome, descricao, preco, permite_observacoes, imagem_produto) values ($1,$2,$3,$4,$5,$6)';
     const produto = await conexao.query(query, [restauranteId.rows[0].id, nome, descricao, preco, permiteObservacoes, imagemProduto]);
-
-    if (nome) {
-      const query2 = 'select * from produto where restaurante_id = $1';
-      const { rows: produtosEncontrados } = await conexao.query(query2, [restauranteId]);
-      const nomeIgual = produtosEncontrados.find((prod) => prod.nome === nome);
-      if (nomeIgual) {
-        return res.status(400).json('O nome do produto ja existe');
-      }
-    }
 
     if (produto.rowCount === 0) {
       return res.status(400).json('Não foi possivel cadastrar o produto');
