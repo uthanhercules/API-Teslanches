@@ -32,7 +32,7 @@ const editarProduto = async (req, res) => {
       const query1 = 'select * from produto where restaurante_id = $1';
       const { rows: produtosEncontrados } = await conexao.query(query1, [restauranteId]);
       const nomeIgual = produtosEncontrados.find((prod) => prod.nome === nome);
-      if (nomeIgual && nomeIgual.id !== idProduto) {
+      if (nomeIgual && nomeIgual.id === idProduto) {
         return res.status(400).json('O nome do produto ja existe');
       }
     }

@@ -46,5 +46,5 @@ CREATE TABLE produto(
   imagem_produto TEXT,
   preco int NOT NULL,
   ativo boolean NOT NULL DEFAULT(TRUE),
-  permite_observacoes boolean NOT NULL DEFAULT(FALSE)
+  permite_observacoes boolean DEFAULT(FALSE)
 );
