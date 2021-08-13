@@ -24,7 +24,6 @@ const cadastrarProduto = async (req, res) => {
     if (nomeIgual) {
       return res.status(400).json('O nome do produto ja existe');
     }
-
     const query = 'insert into produto (restaurante_id,nome, descricao, preco, permite_observacoes, imagem_produto) values ($1,$2,$3,$4,$5,$6)';
     const produto = await conexao.query(query, [restauranteId.rows[0].id, nome, descricao, preco, permiteObservacoes, imagemProduto]);
 
