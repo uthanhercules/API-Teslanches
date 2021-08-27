@@ -14,6 +14,8 @@ const { obterUsuario } = require('./controladores/Usuarios/obterUsuario');
 const { editarUsuario } = require('./controladores/Usuarios/editarUsuario');
 const { carregarImagem, excluirImagem } = require('./controladores/upload/uploads');
 const { editarFotoUsuario } = require('./controladores/Usuarios/editarFotoUsuario');
+const { listarPedidos } = require('./controladores/pedidos/listarPedidos');
+const { enviarPedido } = require('./controladores/pedidos/enviarPedido');
 
 const rota = express();
 
@@ -36,5 +38,7 @@ rota.put('/imagemProduto/:idProduto', editarImagemProduto);
 rota.delete('/produtos/:idProduto', deletarProduto);
 rota.post('/produtos/:idProduto/ativar', ativarProduto);
 rota.post('/produtos/:idProduto/desativar', desativarProduto);
+rota.get('/pedidos', listarPedidos);
+rota.post('/pedido/:idPedido', enviarPedido);
 
 module.exports = rota;
