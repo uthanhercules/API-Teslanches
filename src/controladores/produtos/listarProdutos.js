@@ -15,7 +15,6 @@ const listarProdutos = async (req, res) => {
 
     const query2 = 'select * from produto where restaurante_id = $1';
     const { rows: produtos } = await conexao.query(query2, [restauranteId]);
-
     res.status(200).json(produtos);
   } catch (error) {
     res.status(400).json(error.message);
