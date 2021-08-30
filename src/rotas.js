@@ -14,7 +14,8 @@ const { obterUsuario } = require('./controladores/Usuarios/obterUsuario');
 const { editarUsuario } = require('./controladores/Usuarios/editarUsuario');
 const { carregarImagem, excluirImagem } = require('./controladores/upload/uploads');
 const { editarFotoUsuario } = require('./controladores/Usuarios/editarFotoUsuario');
-const { listarPedidos, listarItensDoPedido } = require('./controladores/pedidos/obterDadosDoConsumidor');
+const { listarItensDoPedido } = require('./controladores/pedidos/obterDadosDoConsumidor');
+const { listarPedidos } = require('./controladores/pedidos/listarPedidos');
 const { enviarPedido } = require('./controladores/pedidos/enviarPedido');
 
 const rota = express();
