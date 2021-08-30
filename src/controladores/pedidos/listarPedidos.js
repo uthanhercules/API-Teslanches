@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 const jwt = require('jsonwebtoken');
 const conexao = require('../../banco_de_dados/conexao');
