@@ -9,7 +9,7 @@ const listarPedidos = async (req, res) => {
   const { ID } = dadosUsuarios;
 
   try {
-    const query = 'select restaurante_id,consumidor_id,valor_produtos,taxa_entrega,valor_total, endereco_entrega, nome_usuario from pedido INNER JOIN consumidor on consumidor.id = pedido.consumidor_id where restaurante_id = $1';
+    const query = 'select restaurante_id,consumidor_id,valor_produtos,taxa_entrega,pedido.valor_total, endereco_entrega, nome_usuario,carrinho.* from pedido INNER JOIN consumidor on consumidor.id = pedido.consumidor_id INNER JOIN carrinho on carrinho.pedido_id = pedido.id where restaurante_id = $1';
     const { rows: pedidos } = await conexao.query(query, [ID]);
     for (pedido of pedidos) {
       pedido.endereco_entrega = JSON.parse(pedido.endereco_entrega);
