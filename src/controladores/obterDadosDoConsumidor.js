@@ -9,7 +9,7 @@ const listarPedidos = async (req, res) => {
   const restaurante_id = dadosUsuario.idDoRestaurante;
 
   try {
-    const pedidosSQL = 'SELECT * FROM pedido WHERE restaurante_id = $1 ORDER BY id DESC';
+    const pedidosSQL = 'SELECT pedido.id, restaurante_id,consumidor_id,valor_produtos,taxa_entrega,valor_total, endereco_entrega, nome_usuario FROM pedido INNER JOIN consumidor ON consumidor.id = pedido.consumidor_id WHERE restaurante_id = $1 ORDER BY pedido.id DESC';
     const pedidos = await conexao.query(pedidosSQL, [restaurante_id]);
 
     if (pedidos.length === 0) {
@@ -18,9 +18,7 @@ const listarPedidos = async (req, res) => {
 
     const output = {
       Restaurante: dadosUsuario.NomeRestaurante,
-      Pedidos: {
-        ...pedidos.rows,
-      },
+      Pedidos: pedidos.rows,
     };
 
     return res.json(output);
