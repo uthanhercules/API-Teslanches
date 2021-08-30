@@ -12,8 +12,8 @@ const listarPedidos = async (req, res) => {
     const pedidosSQL = 'SELECT pedido.id, restaurante_id,consumidor_id, valor_produtos, taxa_entrega, valor_total, endereco_entrega, nome_usuario FROM pedido INNER JOIN consumidor ON consumidor.id = pedido.consumidor_id WHERE restaurante_id = $1 ORDER BY pedido.id DESC';
     const pedidos = await conexao.query(pedidosSQL, [restaurante_id]);
 
-    if (pedidos.length === 0) {
-      return res.status(404).json('Não nenhum pedido registrado para este usuário.');
+    if (pedidos.rows.length === 0) {
+      return res.status(404).json('Não há nenhum pedido registrado para este usuário.');
     }
 
     const output = {
@@ -35,8 +35,8 @@ const listarItensDoPedido = async (req, res) => {
     const itensSQL = 'SELECT pedido_id, produto_id, nome, preco, quantidade, valor_total FROM carrinho WHERE pedido_id = $1';
     const itens = await conexao.query(itensSQL, [idPedido]);
 
-    if (itens.length === 0) {
-      return res.status(404).json('Não nenhum pedido registrado com este número.');
+    if (itens.rows.length === 0) {
+      return res.status(404).json('Não há nenhum pedido registrado com este número.');
     }
 
     return res.json(itens.rows);
