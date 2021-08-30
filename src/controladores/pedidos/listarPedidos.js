@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 const jwt = require('jsonwebtoken');
@@ -14,6 +15,11 @@ const listarPedidos = async (req, res) => {
     const { rows: pedidos } = await conexao.query(query, [ID]);
     for (pedido of pedidos) {
       pedido.endereco_entrega = JSON.parse(pedido.endereco_entrega);
+    }
+    for (const pedido of pedidos) {
+      const query1 = 'select * from carrinho where pedido_id = $1';
+      const { rows: itens } = await conexao.query(query1, [pedido.id]);
+      pedido.carrinho = itens;
     }
     res.status(200).json(pedidos);
   } catch (error) {
