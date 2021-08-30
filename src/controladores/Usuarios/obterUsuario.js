@@ -12,6 +12,7 @@ const obterUsuario = async (req, res) => {
       JOIN restaurante ON restaurante.usuario_id = usuario.id WHERE usuario.id = $1;
       `;
     const usuario = await conexao.query(query, [ID]);
+    console.log(usuario);
     return res.status(200).json(usuario.rows[0]);
   } catch (error) {
     res.status(400).json(error.message);

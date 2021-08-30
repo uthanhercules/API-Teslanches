@@ -14,6 +14,7 @@ const { obterUsuario } = require('./controladores/Usuarios/obterUsuario');
 const { editarUsuario } = require('./controladores/Usuarios/editarUsuario');
 const { carregarImagem, excluirImagem } = require('./controladores/upload/uploads');
 const { editarFotoUsuario } = require('./controladores/Usuarios/editarFotoUsuario');
+const { listarPedidos } = require('./controladores/obterDadosDoConsumidor');
 
 const rota = express();
 
@@ -27,6 +28,8 @@ rota.use(verificarLogin);
 rota.get('/usuario', obterUsuario);
 rota.put('/usuario', editarUsuario);
 rota.put('/imagemUsuario', editarFotoUsuario);
+
+rota.get('/pedidos', listarPedidos);
 
 rota.post('/produtos', cadastrarProduto);
 rota.get('/produtos', listarProdutos);

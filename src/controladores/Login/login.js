@@ -21,7 +21,6 @@ const logar = async (req, res) => {
 
     const usuario = encontrarRegistro.rows[0];
     const senhaUsuario = decrypt(JSON.parse(usuario.senha));
-
     if (senha !== senhaUsuario) {
       return res.status(400).json(erro.loginIncorreto);
     }
@@ -42,6 +41,7 @@ const logar = async (req, res) => {
       Nome: usuario.nome,
       Email: usuario.email,
       NomeRestaurante: nomeRestaurante.nome,
+      idDoRestaurante,
       Categoria: categoriaRestaurante.rows[0].nome,
     }, jwtSecret, { expiresIn: '1h' });
 
@@ -51,6 +51,7 @@ const logar = async (req, res) => {
         Nome: usuario.nome,
         Email: usuario.email,
         NomeRestaurante: nomeRestaurante.nome,
+        idDoRestaurante,
         Categoria: categoriaRestaurante.rows[0].nome,
       },
       tokenUsuario,
