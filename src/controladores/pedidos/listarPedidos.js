@@ -17,7 +17,7 @@ const listarPedidos = async (req, res) => {
       pedido.endereco_entrega = JSON.parse(pedido.endereco_entrega);
     }
     for (const pedido of pedidos) {
-      const query1 = 'select * from carrinho where pedido_id = $1';
+      const query1 = 'select carrinho.*, imagem_produto from carrinho INNER JOIN produto on produto.id = carrinho.produto_id where pedido_id = $1';
       const { rows: itens } = await conexao.query(query1, [pedido.id]);
       pedido.carrinho = itens;
     }
